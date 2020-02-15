@@ -32,7 +32,7 @@ module.exports = {
     if (err) {
       res.send({ success: false, data: { err: err } });
     } else {
-      res.send({ success: true, data: data });
+      res.send({ success: true, data });
     }
   },
 

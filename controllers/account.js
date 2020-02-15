@@ -31,7 +31,8 @@ module.exports = {
         token: jwt.token,
         id: user._id,
         email: user.email,
-        role: user.email
+        role: user.email,
+        avatar: user.avatar
       });
     }
   },
@@ -56,12 +57,14 @@ module.exports = {
     util.handleResponse(res, null, {});
   },
 
-  getInfo(req, res) {
-    res.data.data = {
-      role: req.jwt.payload.role,
-      username: req.jwt.payload.username,
-      email: req.jwt.payload.email
+  async getInfo(req, res) {
+    const user = await User.findOne({ email: req.jwt.payload.email });
+    const data = {
+      role: user.role,
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar
     };
-    res.send(res.data);
+    util.handleResponse(res, null, data);
   }
 };
