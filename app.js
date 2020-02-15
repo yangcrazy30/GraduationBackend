@@ -1,11 +1,14 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const app = express();
+const jwt = require("jwt-express");
+const cors = require("cors");
 const config = require("./config");
-
+const responsePlugin = require("./middleware/responsePlugin");
 mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 var db = mongoose.connection;
@@ -18,18 +21,26 @@ db.on("error", function() {
   console.log("db error");
 });
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-
-var app = express();
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const uploadRouter = require("./routes/upload");
 
 app.use(logger("dev"));
+app.use(responsePlugin);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors(config.cors.options));
+app.use(jwt.init(config.jwt.secret, config.jwt.options));
+
+app.use(express.static("public"));
+app.use(express.static("uploads"));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/upload", uploadRouter);
 
 module.exports = app;

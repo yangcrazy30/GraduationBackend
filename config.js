@@ -10,7 +10,7 @@ const credentials = {
     jwt: {
       secret: "123456",
       options: {
-        cookie: "hw",
+        cookie: "ujs",
         cookies: true
       }
     },
@@ -39,7 +39,7 @@ const credentials = {
     jwt: {
       secret: "123456",
       options: {
-        cookie: "hw",
+        cookie: "ujs",
         cookies: true
       }
     },
@@ -51,7 +51,7 @@ const credentials = {
     },
     cors: {
       options: {
-        origin: "http://127.0.0.1:8080",
+        origin: "http://localhost:8080",
         credentials: true
       }
     }
