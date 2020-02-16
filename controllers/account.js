@@ -3,7 +3,6 @@ const util = require("../utils/utils");
 
 module.exports = {
   async login(req, res, next) {
-    // const role = req.body.role || "student";
     const email = req.body.email || "";
     const password = req.body.password || "";
 
@@ -32,7 +31,8 @@ module.exports = {
         id: user._id,
         email: user.email,
         role: user.email,
-        avatar: user.avatar
+        avatar: user.avatar,
+        username: user.username
       });
     }
   },
@@ -65,6 +65,21 @@ module.exports = {
       email: user.email,
       avatar: user.avatar
     };
-    util.handleResponse(res, null, data);
+    const jwt = res.jwt({
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      role: user.role
+    });
+    util.handleResponse(res, null, { ...data, token: jwt.token });
+  },
+
+  async updateInfo(req, res) {
+    const newuser = await User.findOneAndUpdate(
+      { email: req.jwt.payload.email },
+      { ...req.body }
+    );
+    console.log(newuser);
+    util.handleResponse(res, null, { token });
   }
 };
