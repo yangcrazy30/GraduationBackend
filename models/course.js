@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
-  teacherId: String,
+  teacher: String,
   name: String,
   description: String,
-  time: Array
+  startDay: Date,
+  endDay: Date,
+  imageUrl: String
 });
 
 module.exports = mongoose.model("course", courseSchema);

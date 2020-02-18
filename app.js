@@ -24,6 +24,7 @@ db.on("error", function() {
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const uploadRouter = require("./routes/upload");
+const courseRouter = require("./routes/course");
 
 app.use(logger("dev"));
 app.use(responsePlugin);
@@ -42,5 +43,6 @@ app.use(express.static("uploads"));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/upload", uploadRouter);
+app.use("/course", courseRouter);
 
 module.exports = app;

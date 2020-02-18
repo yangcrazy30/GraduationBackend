@@ -19,7 +19,8 @@ module.exports = {
       username: user.username,
       email: user.email,
       password: user.password,
-      role: user.role
+      role: user.role,
+      id: user.id
     });
 
     if (!user || !user.validPassword(password)) {
@@ -42,15 +43,13 @@ module.exports = {
     const password = req.body.password || "";
     const email = req.body.email || "";
     const role = req.body.role || "student";
-    const phone = req.body.phone || "";
 
     let newuser = new User({
       username: username,
       password: password,
       email: email,
       avatar: "",
-      role: role,
-      phone: phone
+      role: role
     });
 
     await newuser.save();
@@ -69,7 +68,8 @@ module.exports = {
       username: user.username,
       email: user.email,
       password: user.password,
-      role: user.role
+      role: user.role,
+      id: user.id
     });
     util.handleResponse(res, null, { ...data, token: jwt.token });
   },
