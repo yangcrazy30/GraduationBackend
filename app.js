@@ -13,11 +13,11 @@ mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 var db = mongoose.connection;
 
-db.on("open", function() {
+db.on("open", function () {
   console.log("db success");
 });
 
-db.on("error", function() {
+db.on("error", function () {
   console.log("db error");
 });
 
@@ -25,6 +25,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const uploadRouter = require("./routes/upload");
 const courseRouter = require("./routes/course");
+const bbsRouter = require("./routes/bbs");
 
 app.use(logger("dev"));
 app.use(responsePlugin);
@@ -44,5 +45,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/upload", uploadRouter);
 app.use("/course", courseRouter);
+app.use("/bbs", bbsRouter);
+
 
 module.exports = app;

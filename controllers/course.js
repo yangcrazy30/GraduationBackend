@@ -4,10 +4,11 @@ const Lesson = require("../models/lesson");
 
 module.exports = {
   async getCourse(req, res) {
-    const config = req.body.config;
-    const courses = await Course.find()
+    const config = req.query.config;
+    let courses = await Course.find()
       .skip(parseInt((config.page - 1) * config.size))
-      .limit(config.size);
+      .limit(+config.size);
+    courses = courses.map(item => item.toObject({ getters: true }))
     util.handleResponse(res, null, courses);
   },
 
@@ -34,7 +35,7 @@ module.exports = {
     util.handleResponse(res, null, {});
   },
 
-  async deleteCourse() {},
+  async deleteCourse() { },
 
   async updateSubsCourse(req, res) {
     const courseid = req.body.id;

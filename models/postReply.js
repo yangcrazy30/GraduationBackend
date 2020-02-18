@@ -5,6 +5,7 @@ const replytSchema = new Schema({
   postId: String,
   fromId: String,
   toId: String,
+  content: String,
   time: Date,
   like: Number
 });

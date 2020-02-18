@@ -7,7 +7,6 @@ const postSchema = new Schema({
   content: String,
   time: Date,
   like: Number,
-  role: String
 });
 
 module.exports = mongoose.model("post", postSchema);

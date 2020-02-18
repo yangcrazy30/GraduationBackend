@@ -79,7 +79,6 @@ module.exports = {
       { email: req.jwt.payload.email },
       { ...req.body }
     );
-    console.log(newuser);
     util.handleResponse(res, null, { token });
   }
 };
