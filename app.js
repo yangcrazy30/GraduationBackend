@@ -26,6 +26,7 @@ const usersRouter = require("./routes/users");
 const uploadRouter = require("./routes/upload");
 const courseRouter = require("./routes/course");
 const bbsRouter = require("./routes/bbs");
+const resourceRouter = require("./routes/resource");
 
 app.use(logger("dev"));
 app.use(responsePlugin);
@@ -46,6 +47,7 @@ app.use("/users", usersRouter);
 app.use("/upload", uploadRouter);
 app.use("/course", courseRouter);
 app.use("/bbs", bbsRouter);
+app.use("/resource", resourceRouter);
 
 
 module.exports = app;

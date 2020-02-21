@@ -1,6 +1,7 @@
 const util = require("../utils/utils");
 const Course = require("../models/course");
 const Lesson = require("../models/lesson");
+const fs = require('fs')
 
 module.exports = {
   async getCourse(req, res) {
@@ -32,6 +33,15 @@ module.exports = {
     const courseinfo = req.body;
     let course = new Course(courseinfo);
     await course.save();
+
+    let path = 'uploads/resource/' + course._id + '/root';
+
+    if (!fs.existsSync(path)) {
+      fs.mkdir(path, { recursive: true }, (err) => {
+        if (err) throw err
+      })
+    }
+
     util.handleResponse(res, null, {});
   },
 
