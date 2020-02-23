@@ -27,6 +27,7 @@ const uploadRouter = require("./routes/upload");
 const courseRouter = require("./routes/course");
 const bbsRouter = require("./routes/bbs");
 const resourceRouter = require("./routes/resource");
+const homeworkRouter = require("./routes/homework");
 
 app.use(logger("dev"));
 app.use(responsePlugin);
@@ -48,6 +49,7 @@ app.use("/upload", uploadRouter);
 app.use("/course", courseRouter);
 app.use("/bbs", bbsRouter);
 app.use("/resource", resourceRouter);
+app.use("/homework", homeworkRouter);
 
 
 module.exports = app;

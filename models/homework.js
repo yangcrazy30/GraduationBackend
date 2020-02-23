@@ -3,8 +3,10 @@ const Schema = mongoose.Schema;
 
 const homeworkSchema = new Schema({
   courseId: String,
-  time: Array,
-  description: String
+  name: String,
+  startTime: Date,
+  endTime: Date,
+  questions: Array
 });
 
 module.exports = mongoose.model("homework", homeworkSchema);

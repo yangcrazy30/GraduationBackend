@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const gradeSchema = new Schema({
   homeworkId: String,
   studentId: String,
-  grade: Number
+  grade: Number,
+  status: String
 });
 
 module.exports = mongoose.model("grade", gradeSchema);
