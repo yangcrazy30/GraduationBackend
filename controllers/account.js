@@ -20,7 +20,7 @@ module.exports = {
       email: user.email,
       password: user.password,
       role: user.role,
-      id: user.id
+      id: user._id
     });
 
     if (!user || !user.validPassword(password)) {
@@ -31,7 +31,7 @@ module.exports = {
         token: jwt.token,
         id: user._id,
         email: user.email,
-        role: user.email,
+        role: user.role,
         avatar: user.avatar,
         username: user.username
       });
@@ -62,14 +62,15 @@ module.exports = {
       role: user.role,
       username: user.username,
       email: user.email,
-      avatar: user.avatar
+      avatar: user.avatar,
+      id: user._id
     };
     const jwt = res.jwt({
       username: user.username,
       email: user.email,
       password: user.password,
       role: user.role,
-      id: user.id
+      id: user._id
     });
     util.handleResponse(res, null, { ...data, token: jwt.token });
   },
@@ -80,5 +81,19 @@ module.exports = {
       { ...req.body }
     );
     util.handleResponse(res, null, { token });
+  },
+
+  async getUserInfoByEmail(req, res) {
+    const email = req.query.email;
+    const user = await User.findOne({ email: email });
+
+    util.handleResponse(res, null, user.toObject({ getters: true }));
+  },
+
+  async getInfoById(req, res) {
+    const id = req.query.id;
+    const user = await User.findById(id);
+
+    util.handleResponse(res, null, user.toObject({ getters: true }));
   }
 };

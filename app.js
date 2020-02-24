@@ -28,6 +28,7 @@ const courseRouter = require("./routes/course");
 const bbsRouter = require("./routes/bbs");
 const resourceRouter = require("./routes/resource");
 const homeworkRouter = require("./routes/homework");
+const chatRouter = require("./routes/chat");
 
 app.use(logger("dev"));
 app.use(responsePlugin);
@@ -50,6 +51,7 @@ app.use("/course", courseRouter);
 app.use("/bbs", bbsRouter);
 app.use("/resource", resourceRouter);
 app.use("/homework", homeworkRouter);
+app.use("/chat", chatRouter);
 
 
 module.exports = app;

@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +21,8 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +31,30 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+let userSocket = {};
+
+io.on('connection', (socket) => {
+  console.log('socket on');
+  socket.on('join', (userId) => {
+    if (!(userId in userSocket)) {
+      socket.id = userId;
+      userSocket[userId] = socket;
+    }
+  })
+
+  socket.on('disconnect', () => {
+    if (socket.id in userSocket) {
+      delete (userSocket[socket.id]);
+    }
+  });
+
+  socket.on('sendmessage', (toId) => {
+    if (toId in userSocket) {
+      userSocket[toId].emit('receivemessage', toId);
+    }
+  })
+})
 
 /**
  * Normalize a port into a number, string, or false.
