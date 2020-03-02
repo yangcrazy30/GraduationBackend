@@ -3,18 +3,6 @@ const Post = require("../models/post");
 const User = require("../models/user");
 const PostReply = require("../models/postReply");
 module.exports = {
-    async getPost(req, res) {
-        const config = req.query.config;
-        let posts = await Post.find()
-            .skip(parseInt((config.page - 1) * config.size))
-            .limit(+config.size);
-        posts = posts.map(item => item.toObject({ getters: true }))
-        for (let p of posts) {
-            p.time = util.formatDate(new Date(p.time), "yyyy-MM-dd hh:mm:ss");
-            p.username = (await User.findById(p.userId)).username;
-        }
-        util.handleResponse(res, null, posts);
-    },
     async newPost(req, res) {
         const date = util.formatDate(new Date(), "yyyy-MM-dd hh:mm:ss");
         const title = req.body.title;
@@ -49,6 +37,19 @@ module.exports = {
         const count = await PostReply.countDocuments({ postId: id });
         util.handleResponse(res, null, count);
     },
+    async getPostByName(req, res) {
+        const config = req.query.config;
+        const title = req.query.title;
+        let posts = await Post.find({ title: new RegExp(title) })
+            .skip(parseInt((config.page - 1) * config.size))
+            .limit(+config.size);
+        posts = posts.map(item => item.toObject({ getters: true }))
+        for (let p of posts) {
+            p.time = util.formatDate(new Date(p.time), "yyyy-MM-dd hh:mm:ss");
+            p.username = (await User.findById(p.userId)).username;
+        }
+        util.handleResponse(res, null, posts);
+    },
     async getPostReply(req, res) {
         const config = req.query.config;
         const postid = req.query.postid;
@@ -57,11 +58,11 @@ module.exports = {
             .limit(+config.size);
         replys = replys.map(item => item.toObject({ getters: true }));
         for (let reply of replys) {
-            reply.fromId = (await User.findById(reply.fromId)).username;
-            reply.toId = (await User.findById(reply.toId)).username;
+            reply.fromUsername = (await User.findById(reply.fromId)).username;
+            reply.toUsername = (await User.findById(reply.toId)).username;
             reply.time = util.formatDate(new Date(reply.time), "yyyy-MM-dd hh:mm:ss");
         }
-        util.handleResponse(res, null, replys);
+        util.handleResponse(res, null, replys.reverse());
     },
     async replyPost(req, res) {
         const replyinfo = req.body.replyinfo;

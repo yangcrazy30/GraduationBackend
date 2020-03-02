@@ -24,7 +24,7 @@ module.exports = {
     });
 
     if (!user || !user.validPassword(password)) {
-      util.handleResponse(res, "Password Eroor", null);
+      util.handleResponse(res, "Login Error", null);
       return;
     } else {
       util.handleResponse(res, null, {
@@ -76,11 +76,12 @@ module.exports = {
   },
 
   async updateInfo(req, res) {
+    console.log(req.body);
     const newuser = await User.findOneAndUpdate(
       { email: req.jwt.payload.email },
       { ...req.body }
     );
-    util.handleResponse(res, null, { token });
+    util.handleResponse(res, null, {});
   },
 
   async getUserInfoByEmail(req, res) {
