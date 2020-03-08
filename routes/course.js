@@ -12,8 +12,14 @@ router.get("/courses", course.getCourse);
 
 router.get("/courseids", course.getSubsCourseIds);
 
-router.post("/studentcourse", course.updateSubsCourse);
+router.post("/subs", course.SubsCourse);
 
 router.get("/subscourse", course.getSubsCourse);
+
+router.post("/unsubs", course.UnSubsCourse);
+
+router.get("/students", course.getCourseStudents);
+
+router.post("/finalgrade", course.updateFinalGrade);
 
 module.exports = router;
