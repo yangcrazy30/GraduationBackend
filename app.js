@@ -9,6 +9,7 @@ const jwt = require("jwt-express");
 const cors = require("cors");
 const config = require("./config");
 const responsePlugin = require("./middleware/responsePlugin");
+const fs = require('fs');
 mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 var db = mongoose.connection;
@@ -37,11 +38,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 app.use(cors(config.cors.options));
 app.use(jwt.init(config.jwt.secret, config.jwt.options));
-
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static("uploads"));
 
 app.use("/", indexRouter);
@@ -52,6 +51,8 @@ app.use("/bbs", bbsRouter);
 app.use("/resource", resourceRouter);
 app.use("/homework", homeworkRouter);
 app.use("/chat", chatRouter);
+
+
 
 
 module.exports = app;
