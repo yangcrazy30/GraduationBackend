@@ -23,7 +23,6 @@ module.exports = {
                 id: value.id
             };
         })
-        console.log(message);
         util.handleResponse(res, null, message);
     },
     async sendMessage(req, res) {

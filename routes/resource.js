@@ -7,7 +7,6 @@ const storage = multer.diskStorage({
     //存储的位置
     destination(req, file, cb) {
         let path = "uploads/resource/" + req.body.courseId + '/' + req.body.path;
-        console.log(file);
         cb(null, path);
     },
     filename(req, file, cb) {

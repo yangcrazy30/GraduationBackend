@@ -25,7 +25,6 @@ module.exports = {
         const postId = req.query.id;
         let post = await Post.findById(postId);
         let user = await User.findById(post.userId);
-        console.log(user.username);
         if (post) {
             util.handleResponse(res, null, { ...post.toObject({ getters: true }), username: user.username })
         } else {

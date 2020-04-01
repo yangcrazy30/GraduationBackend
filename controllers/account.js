@@ -57,6 +57,7 @@ module.exports = {
   },
 
   async getInfo(req, res) {
+    console.log(req.headers.authorization);
     const user = await User.findOne({ email: req.jwt.payload.email });
     const data = {
       role: user.role,

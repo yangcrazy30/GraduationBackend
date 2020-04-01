@@ -46,8 +46,6 @@ module.exports = {
         let now = new Date();
         now = now.getTime();
         let deadline = homework.endTime.getTime();
-        console.log(now);
-        console.log(deadline);
         if (!grade) {
             let newGrade = new Grade({
                 studentId: studentId,
@@ -59,7 +57,6 @@ module.exports = {
             util.handleResponse(res, null, newGrade.toObject({ getters: true }));
         } else {
             if (now > deadline) {
-                console.log('123');
                 let newgrade = await Grade.findOneAndUpdate({ homeworkId: homeworkId, studentId: studentId }, { grade: 0, status: '已过期' });
                 util.handleResponse(res, null, newgrade.toObject({ getters: true }))
             }
