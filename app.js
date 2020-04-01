@@ -39,9 +39,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors(config.cors.options));
-app.use(jwt.init(config.jwt.secret, config.jwt.options));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static("uploads"));
+app.use(jwt.init(config.jwt.secret, config.jwt.options));
+
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

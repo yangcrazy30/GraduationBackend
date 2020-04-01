@@ -7,8 +7,9 @@ const fs = require('fs')
 
 module.exports = {
   async getCourse(req, res) {
+    const courseName = req.query.courseName;
     const config = req.query.config;
-    let courses = await Course.find()
+    let courses = await Course.find({ name: new RegExp(courseName) })
       .skip(parseInt((config.page - 1) * config.size))
       .limit(+config.size);
     courses = courses.map(item => item.toObject({ getters: true }))

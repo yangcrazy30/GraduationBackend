@@ -11,13 +11,7 @@ const credentials = {
       secret: "123456",
       options: {
         cookie: "ujs",
-        cookies: true
-      }
-    },
-    upload: {
-      baseDir: "/data/homeworks",
-      options: {
-        createParentPath: true
+        cookies: false
       }
     },
     cors: {
@@ -40,13 +34,7 @@ const credentials = {
       secret: "123456",
       options: {
         cookie: "ujs",
-        cookies: true
-      }
-    },
-    upload: {
-      baseDir: "/Users/leob_o/Desktop/homeworks",
-      options: {
-        createParentPath: true
+        cookies: false
       }
     },
     cors: {
