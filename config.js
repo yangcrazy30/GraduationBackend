@@ -16,7 +16,7 @@ const credentials = {
     },
     cors: {
       options: {
-        origin: "http://blog.leobob.cn",
+        origin: "http://zeogzfg.cn",
         credentials: true
       }
     }
@@ -39,7 +39,7 @@ const credentials = {
     },
     cors: {
       options: {
-        origin: "http://localhost:8080",
+        origin: "http://zeogzfg.cn",
         credentials: true
       }
     }
