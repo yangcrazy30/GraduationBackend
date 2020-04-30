@@ -18,6 +18,10 @@ router.get("/subscourse", course.getSubsCourse);
 
 router.post("/unsubs", course.UnSubsCourse);
 
+router.post("/remove", course.deleteCourse);
+
+router.post("/edit", course.editCourse);
+
 
 router.get("/students", course.getCourseStudents);
 

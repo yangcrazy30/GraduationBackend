@@ -48,7 +48,17 @@ module.exports = {
     util.handleResponse(res, null, {});
   },
 
-  async deleteCourse() { },
+  async deleteCourse(req, res) {
+    const courseID = req.body.id;
+    await Course.deleteOne({ _id: courseID });
+    util.handleResponse(res, null, {});
+  },
+
+  async editCourse(req, res) {
+    const courseinfo = req.body;
+    await Course.updateOne({ _id: courseinfo.id }, { name: courseinfo.name, startDay: courseinfo.startDay, endDay: courseinfo.endDay, imageUrl: courseinfo.imageUrl });
+    util.handleResponse(res, null, {});
+  },
 
   async SubsCourse(req, res) {
     const courseid = req.body.id;
