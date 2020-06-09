@@ -10,6 +10,8 @@ const cors = require("cors");
 const config = require("./config");
 const responsePlugin = require("./middleware/responsePlugin");
 const fs = require('fs');
+const compression = require('compression')
+
 mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 var db = mongoose.connection;
@@ -30,6 +32,8 @@ const bbsRouter = require("./routes/bbs");
 const resourceRouter = require("./routes/resource");
 const homeworkRouter = require("./routes/homework");
 const chatRouter = require("./routes/chat");
+
+app.use(compression())
 
 app.use(logger("dev"));
 app.use(responsePlugin);
