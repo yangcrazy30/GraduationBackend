@@ -58,6 +58,8 @@ app.use("/homework", homeworkRouter);
 app.use("/chat", chatRouter);
 
 
-
+if (process.env.NODE_ENV === 'production') {
+  console.log('NODE is ON production');
+}
 
 module.exports = app;
